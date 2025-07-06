@@ -1,0 +1,860 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>StudyMind AI - Intelligent Study Planning Platform</title>
+    <link rel="stylesheet" href="style.css">
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+</head>
+<body>
+    <!-- Landing Page -->
+    <div id="landing-page" class="page active">
+        <nav class="landing-nav">
+            <div class="container flex justify-between items-center">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">StudyMind AI</span>
+                </div>
+                <div class="nav-actions gap-16">
+                    <button class="btn btn--outline" onclick="showLogin()">Sign In</button>
+                    <button class="btn btn--primary" onclick="showRegister()">Get Started</button>
+                </div>
+            </div>
+        </nav>
+
+        <section class="hero">
+            <div class="container">
+                <div class="hero-content">
+                    <h1 class="hero-title">The Future of Intelligent Study Planning</h1>
+                    <p class="hero-subtitle">Powered by advanced AI agents that adapt, learn, and optimize your study experience in real-time</p>
+                    <div class="hero-features">
+                        <div class="feature-item">
+                            <span class="feature-icon">⚡</span>
+                            <span>5 AI Agents Working Together</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">📊</span>
+                            <span>Real-time Adaptive Planning</span>
+                        </div>
+                        <div class="feature-item">
+                            <span class="feature-icon">🎯</span>
+                            <span>Personalized Insights</span>
+                        </div>
+                    </div>
+                    <button class="btn btn--primary btn--lg hero-cta" onclick="showRegister()">Start Your AI-Powered Journey</button>
+                </div>
+                <div class="hero-visual">
+                    <div class="ai-agents-preview">
+                        <div class="agent-card">
+                            <div class="agent-avatar">🤖</div>
+                            <div class="agent-info">
+                                <div class="agent-name">PlannerBot</div>
+                                <div class="agent-status">Optimizing Schedule...</div>
+                            </div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-avatar">🔍</div>
+                            <div class="agent-info">
+                                <div class="agent-name">ReflectionAI</div>
+                                <div class="agent-status">Analyzing Progress...</div>
+                            </div>
+                        </div>
+                        <div class="agent-card">
+                            <div class="agent-avatar">⚙️</div>
+                            <div class="agent-info">
+                                <div class="agent-name">AdaptiveAI</div>
+                                <div class="agent-status">Real-time Adjustments</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Authentication Pages -->
+    <div id="auth-page" class="page">
+        <div class="auth-container">
+            <div class="auth-header">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">StudyMind AI</span>
+                </div>
+                <button class="btn btn--outline" onclick="showLanding()">← Back to Home</button>
+            </div>
+
+            <!-- Login Form -->
+            <div id="login-form" class="auth-form active">
+                <div class="form-container">
+                    <h2>Welcome Back</h2>
+                    <p class="form-subtitle">Sign in to your StudyMind AI account</p>
+                    
+                    <form onsubmit="handleLogin(event)">
+                        <div class="form-group">
+                            <label class="form-label">Email Address</label>
+                            <input type="email" class="form-control" id="login-email" required>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Password</label>
+                            <input type="password" class="form-control" id="login-password" required>
+                        </div>
+                        <div class="form-options flex justify-between">
+                            <label class="checkbox-label">
+                                <input type="checkbox"> Remember me
+                            </label>
+                            <a href="#" class="forgot-link">Forgot password?</a>
+                        </div>
+                        <button type="submit" class="btn btn--primary btn--full-width auth-submit" id="login-btn">
+                            <span class="btn-text">Sign In</span>
+                            <span class="btn-loader hidden">🔄</span>
+                        </button>
+                    </form>
+                    
+                    <div class="auth-divider">
+                        <span>Don't have an account?</span>
+                        <button class="link-btn" onclick="showRegister()">Create Account</button>
+                    </div>
+                </div>
+            </div>
+
+            <!-- Registration Form -->
+            <div id="register-form" class="auth-form">
+                <div class="form-container">
+                    <h2>Create Your Account</h2>
+                    <p class="form-subtitle">Join thousands of students using AI-powered study planning</p>
+                    
+                    <div class="registration-steps">
+                        <div class="step active" data-step="1">1</div>
+                        <div class="step" data-step="2">2</div>
+                        <div class="step" data-step="3">3</div>
+                    </div>
+
+                    <!-- Step 1: Basic Info -->
+                    <div id="reg-step-1" class="reg-step active">
+                        <form onsubmit="nextRegStep(event, 2)">
+                            <div class="form-group">
+                                <label class="form-label">Full Name</label>
+                                <input type="text" class="form-control" id="reg-name" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Email Address</label>
+                                <input type="email" class="form-control" id="reg-email" required>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Password</label>
+                                <input type="password" class="form-control" id="reg-password" required>
+                                <div class="password-strength">
+                                    <div class="strength-meter">
+                                        <div class="strength-fill"></div>
+                                    </div>
+                                    <span class="strength-text">Password strength</span>
+                                </div>
+                            </div>
+                            <button type="submit" class="btn btn--primary btn--full-width">Continue</button>
+                        </form>
+                    </div>
+
+                    <!-- Step 2: Study Preferences -->
+                    <div id="reg-step-2" class="reg-step">
+                        <form onsubmit="nextRegStep(event, 3)">
+                            <div class="form-group">
+                                <label class="form-label">Study Level</label>
+                                <select class="form-control" id="reg-level" required>
+                                    <option value="">Select your level</option>
+                                    <option value="high-school">High School</option>
+                                    <option value="undergraduate">Undergraduate</option>
+                                    <option value="graduate">Graduate</option>
+                                    <option value="professional">Professional</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Preferred Study Time</label>
+                                <div class="time-preference-grid">
+                                    <label class="time-option">
+                                        <input type="radio" name="study-time" value="morning">
+                                        <span>🌅 Morning (6-12 PM)</span>
+                                    </label>
+                                    <label class="time-option">
+                                        <input type="radio" name="study-time" value="afternoon">
+                                        <span>☀️ Afternoon (12-6 PM)</span>
+                                    </label>
+                                    <label class="time-option">
+                                        <input type="radio" name="study-time" value="evening">
+                                        <span>🌙 Evening (6-12 AM)</span>
+                                    </label>
+                                    <label class="time-option">
+                                        <input type="radio" name="study-time" value="flexible">
+                                        <span>⏰ Flexible</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <div class="form-actions flex gap-16">
+                                <button type="button" class="btn btn--outline" onclick="prevRegStep(1)">Back</button>
+                                <button type="submit" class="btn btn--primary">Continue</button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <!-- Step 3: AI Setup -->
+                    <div id="reg-step-3" class="reg-step">
+                        <form onsubmit="completeRegistration(event)">
+                            <div class="ai-setup">
+                                <h3>AI Agent Configuration</h3>
+                                <p>Customize how our AI agents will assist you</p>
+                                
+                                <div class="agent-settings">
+                                    <div class="agent-setting">
+                                        <div class="agent-info">
+                                            <span class="agent-emoji">🤖</span>
+                                            <div>
+                                                <div class="agent-name">PlannerBot</div>
+                                                <div class="agent-desc">Creates and optimizes study schedules</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="agent-setting">
+                                        <div class="agent-info">
+                                            <span class="agent-emoji">🔍</span>
+                                            <div>
+                                                <div class="agent-name">ReflectionAI</div>
+                                                <div class="agent-desc">Analyzes progress and provides insights</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                    <div class="agent-setting">
+                                        <div class="agent-info">
+                                            <span class="agent-emoji">⚙️</span>
+                                            <div>
+                                                <div class="agent-name">AdaptiveAI</div>
+                                                <div class="agent-desc">Adapts plans based on your performance</div>
+                                            </div>
+                                        </div>
+                                        <label class="toggle">
+                                            <input type="checkbox" checked>
+                                            <span class="toggle-slider"></span>
+                                        </label>
+                                    </div>
+                                </div>
+                            </div>
+                            <div class="form-actions flex gap-16">
+                                <button type="button" class="btn btn--outline" onclick="prevRegStep(2)">Back</button>
+                                <button type="submit" class="btn btn--primary" id="complete-reg-btn">
+                                    <span class="btn-text">Complete Setup</span>
+                                    <span class="btn-loader hidden">🔄</span>
+                                </button>
+                            </div>
+                        </form>
+                    </div>
+
+                    <div class="auth-divider">
+                        <span>Already have an account?</span>
+                        <button class="link-btn" onclick="showLogin()">Sign In</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Main Application -->
+    <div id="app" class="page">
+        <!-- Header -->
+        <header class="app-header">
+            <div class="header-left">
+                <div class="logo">
+                    <span class="logo-icon">🧠</span>
+                    <span class="logo-text">StudyMind AI</span>
+                </div>
+                <nav class="main-nav">
+                    <button class="nav-item active" onclick="showDashboard()">Dashboard</button>
+                    <button class="nav-item" onclick="showPlanner()">AI Planner</button>
+                    <button class="nav-item" onclick="showCalendar()">Calendar</button>
+                    <button class="nav-item" onclick="showAnalytics()">Analytics</button>
+                </nav>
+            </div>
+            <div class="header-right">
+                <button class="theme-toggle" onclick="toggleTheme()">🌙</button>
+                <div class="user-menu">
+                    <button class="user-avatar" onclick="toggleUserMenu()">JD</button>
+                    <div class="user-dropdown hidden">
+                        <div class="user-info">
+                            <div class="user-name">John Doe</div>
+                            <div class="user-email">john@example.com</div>
+                        </div>
+                        <hr>
+                        <button class="dropdown-item" onclick="showSettings()">Settings</button>
+                        <button class="dropdown-item" onclick="logout()">Sign Out</button>
+                    </div>
+                </div>
+            </div>
+        </header>
+
+        <!-- Dashboard -->
+        <main id="dashboard" class="app-main active">
+            <div class="container">
+                <div class="dashboard-header">
+                    <div class="welcome-section">
+                        <h1>Welcome back, John! 👋</h1>
+                        <p>Your AI agents have been working while you were away</p>
+                    </div>
+                    <div class="quick-actions">
+                        <button class="btn btn--primary" onclick="showPlanner()">Create Study Plan</button>
+                        <button class="btn btn--outline" onclick="startPomodoroTimer()">Start Pomodoro</button>
+                    </div>
+                </div>
+
+                <!-- AI Agents Status -->
+                <section class="agents-overview">
+                    <h2>AI Agents Status</h2>
+                    <div class="agents-grid">
+                        <div class="agent-card active" data-agent="planner">
+                            <div class="agent-header">
+                                <span class="agent-avatar">🤖</span>
+                                <div class="agent-details">
+                                    <div class="agent-name">PlannerBot</div>
+                                    <div class="agent-role">Study Planning</div>
+                                </div>
+                                <div class="agent-status-indicator active"></div>
+                            </div>
+                            <div class="agent-confidence">
+                                <span>Confidence: 92%</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 92%"></div>
+                                </div>
+                            </div>
+                            <div class="agent-activity">
+                                <div class="activity-text">Optimizing tomorrow's schedule...</div>
+                                <div class="thinking-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="agent-card active" data-agent="reflection">
+                            <div class="agent-header">
+                                <span class="agent-avatar">🔍</span>
+                                <div class="agent-details">
+                                    <div class="agent-name">ReflectionAI</div>
+                                    <div class="agent-role">Progress Analysis</div>
+                                </div>
+                                <div class="agent-status-indicator active"></div>
+                            </div>
+                            <div class="agent-confidence">
+                                <span>Confidence: 88%</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 88%"></div>
+                                </div>
+                            </div>
+                            <div class="agent-activity">
+                                <div class="activity-text">Analyzing study patterns...</div>
+                                <div class="thinking-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="agent-card active" data-agent="adaptive">
+                            <div class="agent-header">
+                                <span class="agent-avatar">⚙️</span>
+                                <div class="agent-details">
+                                    <div class="agent-name">AdaptiveAI</div>
+                                    <div class="agent-role">Dynamic Adjustment</div>
+                                </div>
+                                <div class="agent-status-indicator active"></div>
+                            </div>
+                            <div class="agent-confidence">
+                                <span>Confidence: 95%</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 95%"></div>
+                                </div>
+                            </div>
+                            <div class="agent-activity">
+                                <div class="activity-text">Real-time optimization active</div>
+                                <div class="thinking-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+
+                        <div class="agent-card active" data-agent="analytics">
+                            <div class="agent-header">
+                                <span class="agent-avatar">📊</span>
+                                <div class="agent-details">
+                                    <div class="agent-name">AnalyticsAI</div>
+                                    <div class="agent-role">Data Analysis</div>
+                                </div>
+                                <div class="agent-status-indicator active"></div>
+                            </div>
+                            <div class="agent-confidence">
+                                <span>Confidence: 90%</span>
+                                <div class="confidence-bar">
+                                    <div class="confidence-fill" style="width: 90%"></div>
+                                </div>
+                            </div>
+                            <div class="agent-activity">
+                                <div class="activity-text">Generating insights...</div>
+                                <div class="thinking-dots">
+                                    <span></span><span></span><span></span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Dashboard Stats -->
+                <section class="dashboard-stats">
+                    <div class="stats-grid">
+                        <div class="stat-card">
+                            <div class="stat-icon">📚</div>
+                            <div class="stat-value">156</div>
+                            <div class="stat-label">Total Study Hours</div>
+                            <div class="stat-change positive">+12% this week</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🔥</div>
+                            <div class="stat-value">12</div>
+                            <div class="stat-label">Day Streak</div>
+                            <div class="stat-change positive">Personal best!</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">🎯</div>
+                            <div class="stat-value">78%</div>
+                            <div class="stat-label">Completion Rate</div>
+                            <div class="stat-change positive">+5% improvement</div>
+                        </div>
+                        <div class="stat-card">
+                            <div class="stat-icon">⭐</div>
+                            <div class="stat-value">84</div>
+                            <div class="stat-label">Average Score</div>
+                            <div class="stat-change positive">+2 points</div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Recent Insights -->
+                <section class="insights-section">
+                    <h2>AI Insights</h2>
+                    <div class="insights-grid">
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <span class="insight-agent">🔍 ReflectionAI</span>
+                                <span class="insight-confidence">89% confidence</span>
+                            </div>
+                            <div class="insight-text">Your math performance improves 23% when studied in morning sessions</div>
+                            <div class="insight-actions">
+                                <button class="btn btn--sm btn--outline">Apply Suggestion</button>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <span class="insight-agent">⚙️ AdaptiveAI</span>
+                                <span class="insight-confidence">91% confidence</span>
+                            </div>
+                            <div class="insight-text">Recommend reducing physics session length to 75 minutes for better retention</div>
+                            <div class="insight-actions">
+                                <button class="btn btn--sm btn--outline">Apply Suggestion</button>
+                            </div>
+                        </div>
+                        <div class="insight-card">
+                            <div class="insight-header">
+                                <span class="insight-agent">📊 AnalyticsAI</span>
+                                <span class="insight-confidence">94% confidence</span>
+                            </div>
+                            <div class="insight-text">You're on track to complete all goals 3 days ahead of schedule</div>
+                            <div class="insight-actions">
+                                <button class="btn btn--sm btn--primary">View Details</button>
+                            </div>
+                        </div>
+                    </div>
+                </section>
+
+                <!-- Quick Overview Charts -->
+                <section class="charts-section">
+                    <div class="charts-grid">
+                        <div class="chart-card">
+                            <h3>Subject Progress</h3>
+                            <canvas id="progress-chart"></canvas>
+                        </div>
+                        <div class="chart-card">
+                            <h3>Weekly Study Hours</h3>
+                            <canvas id="hours-chart"></canvas>
+                        </div>
+                    </div>
+                </section>
+            </div>
+        </main>
+
+        <!-- AI Planner -->
+        <main id="planner" class="app-main">
+            <div class="container">
+                <div class="planner-header">
+                    <h1>AI-Powered Study Planner</h1>
+                    <p>Let our AI agents create the perfect study plan for you</p>
+                </div>
+
+                <div class="planner-wizard">
+                    <div class="wizard-steps">
+                        <div class="wizard-step active" data-step="1">
+                            <span class="step-number">1</span>
+                            <span class="step-title">Goals</span>
+                        </div>
+                        <div class="wizard-step" data-step="2">
+                            <span class="step-number">2</span>
+                            <span class="step-title">Subjects</span>
+                        </div>
+                        <div class="wizard-step" data-step="3">
+                            <span class="step-number">3</span>
+                            <span class="step-title">AI Analysis</span>
+                        </div>
+                        <div class="wizard-step" data-step="4">
+                            <span class="step-number">4</span>
+                            <span class="step-title">Plan</span>
+                        </div>
+                    </div>
+
+                    <!-- Step 1: Goals -->
+                    <div id="planner-step-1" class="wizard-content active">
+                        <div class="step-content">
+                            <h2>What are your study goals?</h2>
+                            <div class="form-group">
+                                <label class="form-label">Target Date</label>
+                                <input type="date" class="form-control" id="target-date">
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Daily Study Hours</label>
+                                <select class="form-control" id="daily-hours">
+                                    <option value="2">2 hours</option>
+                                    <option value="3">3 hours</option>
+                                    <option value="4" selected>4 hours</option>
+                                    <option value="5">5 hours</option>
+                                    <option value="6">6+ hours</option>
+                                </select>
+                            </div>
+                            <div class="form-group">
+                                <label class="form-label">Study Intensity</label>
+                                <div class="intensity-options">
+                                    <label class="intensity-option">
+                                        <input type="radio" name="intensity" value="relaxed">
+                                        <span>🌱 Relaxed</span>
+                                    </label>
+                                    <label class="intensity-option">
+                                        <input type="radio" name="intensity" value="moderate" checked>
+                                        <span>⚡ Moderate</span>
+                                    </label>
+                                    <label class="intensity-option">
+                                        <input type="radio" name="intensity" value="intense">
+                                        <span>🔥 Intense</span>
+                                    </label>
+                                </div>
+                            </div>
+                            <button class="btn btn--primary" onclick="nextPlannerStep(2)">Continue</button>
+                        </div>
+                    </div>
+
+                    <!-- Step 2: Subjects -->
+                    <div id="planner-step-2" class="wizard-content">
+                        <div class="step-content">
+                            <h2>Select your subjects</h2>
+                            <div class="subjects-grid" id="subjects-selection">
+                                <!-- Will be populated by JS -->
+                            </div>
+                            <div class="step-actions">
+                                <button class="btn btn--outline" onclick="prevPlannerStep(1)">Back</button>
+                                <button class="btn btn--primary" onclick="nextPlannerStep(3)">Continue</button>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 3: AI Analysis -->
+                    <div id="planner-step-3" class="wizard-content">
+                        <div class="step-content">
+                            <h2>AI Analysis in Progress</h2>
+                            <div class="ai-analysis">
+                                <div class="analysis-agents">
+                                    <div class="analysis-agent" id="analysis-planner">
+                                        <div class="agent-icon">🤖</div>
+                                        <div class="agent-info">
+                                            <div class="agent-name">PlannerBot</div>
+                                            <div class="agent-status">Analyzing optimal schedule...</div>
+                                        </div>
+                                        <div class="agent-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="analysis-agent" id="analysis-adaptive">
+                                        <div class="agent-icon">⚙️</div>
+                                        <div class="agent-info">
+                                            <div class="agent-name">AdaptiveAI</div>
+                                            <div class="agent-status">Calculating difficulty adjustments...</div>
+                                        </div>
+                                        <div class="agent-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="analysis-agent" id="analysis-analytics">
+                                        <div class="agent-icon">📊</div>
+                                        <div class="agent-info">
+                                            <div class="agent-name">AnalyticsAI</div>
+                                            <div class="agent-status">Predicting success rates...</div>
+                                        </div>
+                                        <div class="agent-progress">
+                                            <div class="progress-bar">
+                                                <div class="progress-fill" style="width: 0%"></div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="analysis-insights">
+                                    <div class="insight-item" style="opacity: 0">
+                                        <span class="insight-icon">💡</span>
+                                        <span>Detected optimal morning study window</span>
+                                    </div>
+                                    <div class="insight-item" style="opacity: 0">
+                                        <span class="insight-icon">🎯</span>
+                                        <span>Identified focus areas for improvement</span>
+                                    </div>
+                                    <div class="insight-item" style="opacity: 0">
+                                        <span class="insight-icon">⚡</span>
+                                        <span>Optimized break intervals calculated</span>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- Step 4: Generated Plan -->
+                    <div id="planner-step-4" class="wizard-content">
+                        <div class="step-content">
+                            <h2>Your Personalized Study Plan</h2>
+                            <div class="generated-plan">
+                                <div class="plan-overview">
+                                    <div class="plan-stat">
+                                        <div class="stat-value">28</div>
+                                        <div class="stat-label">Days to Goal</div>
+                                    </div>
+                                    <div class="plan-stat">
+                                        <div class="stat-value">94%</div>
+                                        <div class="stat-label">Success Probability</div>
+                                    </div>
+                                    <div class="plan-stat">
+                                        <div class="stat-value">112</div>
+                                        <div class="stat-label">Total Hours</div>
+                                    </div>
+                                </div>
+                                <div class="plan-schedule" id="generated-schedule">
+                                    <!-- Will be populated by JS -->
+                                </div>
+                                <div class="plan-actions">
+                                    <button class="btn btn--outline" onclick="prevPlannerStep(2)">Modify Plan</button>
+                                    <button class="btn btn--primary" onclick="acceptPlan()">Accept Plan</button>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Calendar -->
+        <main id="calendar" class="app-main">
+            <div class="container">
+                <div class="calendar-header">
+                    <h1>Study Calendar</h1>
+                    <div class="calendar-controls">
+                        <button class="btn btn--outline" onclick="previousWeek()">← Previous</button>
+                        <span class="current-week">June 1-7, 2025</span>
+                        <button class="btn btn--outline" onclick="nextWeek()">Next →</button>
+                        <button class="btn btn--primary" onclick="addStudySession()">+ Add Session</button>
+                    </div>
+                </div>
+
+                <div class="calendar-container">
+                    <div class="calendar-grid" id="calendar-grid">
+                        <!-- Will be populated by JS -->
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Analytics -->
+        <main id="analytics" class="app-main">
+            <div class="container">
+                <div class="analytics-header">
+                    <h1>Study Analytics</h1>
+                    <div class="analytics-filters">
+                        <select class="form-control">
+                            <option>Last 7 days</option>
+                            <option>Last 30 days</option>
+                            <option>Last 3 months</option>
+                        </select>
+                    </div>
+                </div>
+
+                <div class="analytics-grid">
+                    <div class="analytics-card">
+                        <h3>Performance Trends</h3>
+                        <canvas id="performance-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Subject Distribution</h3>
+                        <canvas id="subject-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>Study Patterns</h3>
+                        <canvas id="pattern-chart"></canvas>
+                    </div>
+                    <div class="analytics-card">
+                        <h3>AI Recommendations</h3>
+                        <div class="recommendations-list">
+                            <div class="recommendation-item">
+                                <div class="rec-icon">🤖</div>
+                                <div class="rec-text">Increase morning study sessions for better retention</div>
+                                <div class="rec-confidence">92% confidence</div>
+                            </div>
+                            <div class="recommendation-item">
+                                <div class="rec-icon">⚙️</div>
+                                <div class="rec-text">Add more breaks to physics sessions</div>
+                                <div class="rec-confidence">87% confidence</div>
+                            </div>
+                            <div class="recommendation-item">
+                                <div class="rec-icon">📊</div>
+                                <div class="rec-text">Focus more time on Mathematics this week</div>
+                                <div class="rec-confidence">91% confidence</div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </main>
+
+        <!-- Settings -->
+        <main id="settings" class="app-main">
+            <div class="container">
+                <div class="settings-header">
+                    <h1>Settings</h1>
+                    <p>Customize your StudyMind AI experience</p>
+                </div>
+
+                <div class="settings-grid">
+                    <div class="settings-section">
+                        <h3>AI Agents</h3>
+                        <div class="agent-settings">
+                            <div class="agent-setting">
+                                <div class="setting-info">
+                                    <div class="setting-title">PlannerBot</div>
+                                    <div class="setting-desc">Automatic schedule optimization</div>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="agent-setting">
+                                <div class="setting-info">
+                                    <div class="setting-title">ReflectionAI</div>
+                                    <div class="setting-desc">Progress analysis and insights</div>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                            <div class="agent-setting">
+                                <div class="setting-info">
+                                    <div class="setting-title">Adaptive Learning</div>
+                                    <div class="setting-desc">Real-time plan adjustments</div>
+                                </div>
+                                <label class="toggle">
+                                    <input type="checkbox" checked>
+                                    <span class="toggle-slider"></span>
+                                </label>
+                            </div>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Preferences</h3>
+                        <div class="form-group">
+                            <label class="form-label">Theme</label>
+                            <select class="form-control">
+                                <option>Auto (System)</option>
+                                <option>Light</option>
+                                <option>Dark</option>
+                            </select>
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Notification Frequency</label>
+                            <select class="form-control">
+                                <option>Real-time</option>
+                                <option>Hourly</option>
+                                <option>Daily</option>
+                                <option>Disabled</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="settings-section">
+                        <h3>Account</h3>
+                        <div class="form-group">
+                            <label class="form-label">Email</label>
+                            <input type="email" class="form-control" value="john@example.com">
+                        </div>
+                        <div class="form-group">
+                            <label class="form-label">Name</label>
+                            <input type="text" class="form-control" value="John Doe">
+                        </div>
+                        <button class="btn btn--primary">Save Changes</button>
+                    </div>
+                </div>
+            </div>
+        </main>
+    </div>
+
+    <!-- Pomodoro Timer Modal -->
+    <div id="pomodoro-modal" class="modal">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h3>Pomodoro Timer</h3>
+                <button class="modal-close" onclick="closePomodoroTimer()">×</button>
+            </div>
+            <div class="pomodoro-timer">
+                <div class="timer-display">
+                    <div class="timer-circle">
+                        <div class="timer-time" id="timer-time">25:00</div>
+                        <div class="timer-label" id="timer-label">Focus Time</div>
+                    </div>
+                </div>
+                <div class="timer-controls">
+                    <button class="btn btn--primary" id="timer-start" onclick="startTimer()">Start</button>
+                    <button class="btn btn--outline" id="timer-pause" onclick="pauseTimer()" style="display: none;">Pause</button>
+                    <button class="btn btn--outline" id="timer-reset" onclick="resetTimer()">Reset</button>
+                </div>
+                <div class="timer-settings">
+                    <div class="setting-item">
+                        <label>Focus Time (minutes)</label>
+                        <input type="number" value="25" min="1" max="60" id="focus-time">
+                    </div>
+                    <div class="setting-item">
+                        <label>Break Time (minutes)</label>
+                        <input type="number" value="5" min="1" max="30" id="break-time">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script src="app.js"></script>
+</body>
+</html>
